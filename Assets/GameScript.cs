@@ -144,7 +144,6 @@ public class GameScript : MonoBehaviour {
 		}
 		else if(round == 1.9){
 			if(video.time >= 30.172){
-				Debug.Log("oof: "+video.time);
 				video.time = 58;
 			}
 		}
