@@ -7,21 +7,21 @@ using UnityEngine.UI;
 
 public class GameScript : MonoBehaviour {
 
-	// Use this for initialization
 	void Start () {
 		video.seekCompleted += seekCompleted;
 	}
 
+	/* #region Declaration */
 	public VideoPlayer video;
-
 	public GameObject GameLayer;
 	public GameObject DebugLayer;
-
 	public double round = 0.9;
 	public int rando;
-	public bool isDone;
+	public int lost = 0;
+	public bool win = false;
+	public bool draw = false;
+	/* #endregion */
 	
-	// Update is called once per frame
 	void Update () {
 		if(Input.GetKeyDown(KeyCode.Space)){
 			video.Prepare();
@@ -43,59 +43,163 @@ public class GameScript : MonoBehaviour {
 			GameLayer.SetActive(!GameLayer.activeSelf);
 		}
 
-		if(round == 0.9 && video.time >= 23.99){
+		if(round == 0){
+			video.time = 0;
+			video.Play();
+			GameLayer.SetActive(false);
+		}
+		else if(round == 0.9 && video.time >= 23.99){ //start
 			video.Pause();
+			win =  false;
+			draw = false;
 			round = 1.0;
 			GameLayer.SetActive(true);
 			rando = Random();
 		}
-		if(round == 1.5){
+		else if(round == 1.1){ //lost
+			video.time = 30.5;
+		}
+		else if(round == 1.2){ //draw
+			video.time = 36.0;
+		}
+		else if(round == 1.3){ //lost_draw 2
+			video.time = 43.0;
+		}
+		else if(round == 1.4){ //lost_draw 3 or more
+			video.time = 49.0;
+		}
+		else if(round == 1.5){
 			if(rando == 1){ //rock
 				if(video.time >= 600.777){
-					round = 1.6;
+					if(win){
+						round = 1.6;
+					}
+					else{
+						if(lost == 1){
+							if(draw){
+								round = 1.2;
+							}
+							else{
+								round = 1.1;
+							}
+						}
+						else if(lost == 2){
+							round = 1.3;
+						}
+						else{
+							round = 1.4;
+						}
+					}
 				}
 			}
 			else if (rando == 2){ //paper
 				if(video.time >= 612.0){ // if you get close to the end of the video Unity can't seek fast enough.
-					round = 1.6;
+					if(win){
+						round = 1.6;
+					}
+					else{
+						if(lost == 1){
+							if(draw){
+								round = 1.2;
+							}
+							else{
+								round = 1.1;
+							}
+						}
+						else if(lost == 2){
+							round = 1.3;
+						}
+						else{
+							round = 1.4;
+						}
+					}
 				}
 			}
 			else{ //scissors
 				if(video.time >= 607.287){
-					round = 1.6;
+					if(win){
+						round = 1.6;
+					}
+					else{
+						if(lost == 1){
+							if(draw){
+								round = 1.2;
+							}
+							else{
+								round = 1.1;
+							}
+						}
+						else if(lost == 2){
+							round = 1.3;
+						}
+						else{
+							round = 1.4;
+						}
+					}
 				}
 			}
 		}
-		if(round == 1.6){
+		else if(round == 1.6){
 			video.time = 24.5;
 		}
-		if(round == 1.9){
+		else if(round == 1.9){
 			if(video.time >= 30.172){
 				Debug.Log("oof: "+video.time);
 				video.time = 58;
 			}
 		}
-		if(round == 2.0){
+		else if(round == 2.0){
 			if(video.time >= 93.118){
 				video.Pause();
 				GameLayer.SetActive(true);
 				rando = Random();
 			}
 		}
-
-		Debug.Log(video.time);
+		else if(round == 10.1 && video.time >= 35.927){
+			round = 0;
+		}
+		else if(round == 10.2 && video.time >= 42.810){
+			round = 0;
+		}
+		else if(round == 10.3 && video.time >= 48.564){
+			round = 0;
+		}
+		else if(round == 10.4 && video.time >= 57.682){
+			round = 0;
+		}
 	}
 
 	public void seekCompleted(VideoPlayer v){
-		if(round == 1.6){
+		if(round == 0){
+			round = 0.9;
+		}
+		else if(round == 1.1){
+			round = 10.1;
+		}
+		else if(round == 1.2){
+			round = 10.2;
+		}
+		else if(round == 1.3){
+			round = 10.3;
+		}
+		else if(round == 1.4){
+			round = 10.4;
+		}
+		else if(round == 1.3){
+
+		}
+		else if(round == 1.4){
+
+		}
+		else if(round == 1.6){
 			round = 1.9;
 		}
-		if(round == 1.9 &&  video.time >= 29){
+		else if(round == 1.9 &&  video.time >= 29){
 			round = 2.0;
 		}
 	}
 
-
+	//=====RANDOM=====
 	public int Random(){
 		if(round == 1.0){
 			System.Random rd = new System.Random();
@@ -110,84 +214,117 @@ public class GameScript : MonoBehaviour {
 		}
 	}
 
+	//==========ROCK==========
 	public void Click_rock(){ //1
 		if(round == 1.0){
-			if(rando == 1){ //draw r r
-				video.time = 594.954; //play rock
-				
-				video.Play();
-				Debug.Log("Draw");
-			}
-			else if(rando == 2){ //lost r p
-				video.time = 604.288; //play paper
-				video.Play();
-				Debug.Log("You Lost");
-			}
-			else{ //win r s
-				video.time = 601.0; //play scisors
-				round = 1.5;
-				if(video.isPrepared){
-					video.Play();
-					Debug.Log("You Won");
-				}
-				GameLayer.SetActive(false);
-			}
-		}
-	}
-
-	public void Click_paper(){ //2
-		if(round == 1.0){
-			if(rando == 1){ //win p r
+			if(rando == 1){ 		//draw r r
 				video.time = 595.5; //play rock
 				round = 1.5;
-				if(video.isPrepared){
-					video.Play();
-					Debug.Log("You Won");
-				}
-				GameLayer.SetActive(false);
-			}
-			else if(rando == 2){ //draw p p
-				video.time = 604.288; //play paper
+				lost = lost + 1;
+				win = false;
+				draw = true;
 				video.Play();
 				Debug.Log("Draw");
+				GameLayer.SetActive(false);
 			}
-			else{ //lost p s
-				video.time = 600.778; //play scisors
-				video.Play();
-				Debug.Log("You Lost");
-			}
-		}
-	}
-
-	public void Click_scissors(){ //3
-		if(round == 1.0){
-			if(rando == 1){ //lose s r
-				video.time = 594.954; //play rock
-				video.Play();
-				Debug.Log("You Lost");
-			}
-			else if(rando == 2){ //win s p
+			else if(rando == 2){ 	//lost r p
 				video.time = 607.5; //play paper
 				round = 1.5;
-				if(video.isPrepared){
-					video.Play();
-					Debug.Log("You Won");
-				}
+				lost = lost + 1;
+				win = false;
+				video.Play();
+				Debug.Log("You Lost");
 				GameLayer.SetActive(false);
 			}
-			else{ //draw s s 
-				video.time = 600.778; //play scisors
+			else{ 					//win r s !!!
+				video.time = 601.0; //play scisors
+				round = 1.5;
+				win = true;
 				video.Play();
-				Debug.Log("Draw");
+				Debug.Log("You Won");
+				GameLayer.SetActive(false);
 			}
 		}
 	}
 
+	//==========PAPER==========
+	public void Click_paper(){ //2
+		if(round == 1.0){
+			if(rando == 1){ 		//win p r !!!
+				video.time = 595.5; //play rock
+				round = 1.5;
+				win = true;
+				video.Play();
+				Debug.Log("You Won");
+				GameLayer.SetActive(false);
+			}
+			else if(rando == 2){ 	//draw p p
+				video.time = 607.5; //play paper
+				round = 1.5;
+				lost = lost + 1;
+				win = false;
+				draw = true;
+				video.Play();
+				Debug.Log("Draw");
+				GameLayer.SetActive(false);
+			}
+			else{ 					//lost p s
+				video.time = 601.0; //play scisors
+				round = 1.5;
+				lost = lost + 1;
+				win = false;
+				video.Play();
+				Debug.Log("Draw");
+				GameLayer.SetActive(false);
+			}
+		}
+	}
+
+	//==========SCISSORS==========
+	public void Click_scissors(){ //3
+		if(round == 1.0){
+			if(rando == 1){ 		//lose s r
+				video.time = 595.5; //play rock
+				round = 1.5;
+				lost = lost + 1;
+				win = false;
+				video.Play();
+				Debug.Log("Draw");
+				GameLayer.SetActive(false);
+			}
+			else if(rando == 2){ 	//win s p !!!
+				video.time = 607.5; //play paper
+				round = 1.5;
+				win = true;
+				video.Play();
+				Debug.Log("You Won");
+				GameLayer.SetActive(false);
+			}
+			else{ 					//draw s s 
+				video.time = 601.0; //play scisors
+				round = 1.5;
+				lost = lost + 1;
+				win = false;
+				draw = true;
+				video.Play();
+				Debug.Log("Draw");
+				GameLayer.SetActive(false);
+			}
+		}
+	}
+
+	//==========DEBUG==========
 	public void debug_click(Button button){
 		string debug;
 		debug = button.name;
 
-		if(debug == "Debug0.9"){
+		if(debug == "Debug0"){
+			round = 0.9;
+			video.time = 0;
+			video.Play();
+			GameLayer.SetActive(false);
+		}
+		else if(debug == "Debug0.9"){
 			round = 0.9;
 			video.time = 0;
 		}
@@ -198,6 +335,26 @@ public class GameScript : MonoBehaviour {
 		else if(debug == "Debug1.5"){
 			round = 1.6;
 			video.time = 25.0;
+			rando = 1;
+		}
+		else if(debug == "Debug1.1"){
+			round = 1.1;
+			video.time = 30.5;
+			rando = 1;
+		}
+		else if(debug == "Debug1.2"){
+			round = 1.2;
+			video.time = 36.0;
+			rando = 1;
+		}
+		else if(debug == "Debug1.3"){
+			round = 1.3;
+			video.time = 43.0;
+			rando = 1;
+		}
+		else if(debug == "Debug1.4"){
+			round = 1.4;
+			video.time = 49.0;
 			rando = 1;
 		}
 		else if(debug == "Debug1.6"){
