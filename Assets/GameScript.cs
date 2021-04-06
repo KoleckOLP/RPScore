@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 using UnityEngine.UI;
+/*using System.Net.NetworkInformation;
+using UnityEngine.PSVita;*/
 
 public class GameScript : MonoBehaviour {
 
