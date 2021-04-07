@@ -14,8 +14,8 @@ Planned platforms:
 - Windows x64
 - Mac x64
 - Linux x86 & x64
-- PSVita (either touch or button gameplay like on the PSP)
-- Android (depends on if I can get Touch to work)
+- Android
+- ~~PSVita (either touch or button gameplay like on the PSP)~~
 
-I am using Unity 2018.2.21f1 because it'S the last version to support the PS Vita.<br>
-I've tried porting to newer version of Unity atlest for the PC/Android builds but my bad code and changes in video API prevent me from doing so.
+~~I am using Unity 2018.2.21f1 because it's the last version to support the PS Vita.~~<br>
+I will be Using Unity 2021, as to get the best support For PC and Android.
