@@ -59,6 +59,7 @@ public class MainScript : MonoBehaviour
 
     private void prepareCompleted(VideoPlayer v){ //Autoplaying the first clip
 		video.Play();
+		Debug.Log("prepareCompleted " + videoname);
     }
 
 	public void playvid(string vid){
@@ -92,22 +93,22 @@ public class MainScript : MonoBehaviour
 	}
 
     private void loopPointReached(VideoPlayer v){ //Code to be ran when video ends.
-		Debug.Log("hit_main");
+		Debug.Log("loopPointReached " + videoname);
 		
 		if(videoname == "1_0_game.mp4"){
             Random();
             GameLayer.SetActive(true); //Activates the GaySlayer (as for Soldat's request)
         }
 
-		if(videoname == "6_1_rock"){
+		if(videoname == "6_1_rock.mp4"){
 			win_lose();
 		}
 		
-		if(videoname == "6_2_paper"){
+		if(videoname == "6_2_paper.mp4"){
 			win_lose();
 		}
 		
-		if(videoname == "6_3_scissors"){
+		if(videoname == "6_3_scissors.mp4"){
 			win_lose();
 		}
     }
