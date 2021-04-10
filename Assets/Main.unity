@@ -181,8 +181,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
+        - m_Target: {fileID: 898883766}
+          m_TargetAssemblyTypeName: MainScript, Assembly-CSharp
           m_MethodName: debug_click
           m_Mode: 2
           m_Arguments:
@@ -292,7 +292,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &104705468
 RectTransform:
   m_ObjectHideFlags: 0
@@ -428,8 +428,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
+        - m_Target: {fileID: 898883766}
+          m_TargetAssemblyTypeName: MainScript, Assembly-CSharp
           m_MethodName: debug_click
           m_Mode: 2
           m_Arguments:
@@ -661,8 +661,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
+        - m_Target: {fileID: 898883766}
+          m_TargetAssemblyTypeName: MainScript, Assembly-CSharp
           m_MethodName: debug_click
           m_Mode: 2
           m_Arguments:
@@ -812,8 +812,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
+        - m_Target: {fileID: 898883766}
+          m_TargetAssemblyTypeName: MainScript, Assembly-CSharp
           m_MethodName: debug_click
           m_Mode: 2
           m_Arguments:
@@ -1650,8 +1650,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
+        - m_Target: {fileID: 898883766}
+          m_TargetAssemblyTypeName: MainScript, Assembly-CSharp
           m_MethodName: debug_click
           m_Mode: 2
           m_Arguments:
@@ -1966,8 +1966,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
+        - m_Target: {fileID: 898883766}
+          m_TargetAssemblyTypeName: MainScript, Assembly-CSharp
           m_MethodName: debug_click
           m_Mode: 2
           m_Arguments:
@@ -2035,8 +2035,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
+        - m_Target: {fileID: 898883766}
+          m_TargetAssemblyTypeName: MainScript, Assembly-CSharp
           m_MethodName: debug_click
           m_Mode: 2
           m_Arguments:
@@ -2144,7 +2144,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &752884160
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2863,8 +2863,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
+        - m_Target: {fileID: 898883766}
+          m_TargetAssemblyTypeName: MainScript, Assembly-CSharp
           m_MethodName: debug_click
           m_Mode: 2
           m_Arguments:
@@ -3011,8 +3011,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
+        - m_Target: {fileID: 898883766}
+          m_TargetAssemblyTypeName: MainScript, Assembly-CSharp
           m_MethodName: debug_click
           m_Mode: 2
           m_Arguments:
@@ -3162,8 +3162,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
+        - m_Target: {fileID: 898883766}
+          m_TargetAssemblyTypeName: MainScript, Assembly-CSharp
           m_MethodName: debug_click
           m_Mode: 2
           m_Arguments:
@@ -3553,8 +3553,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
+        - m_Target: {fileID: 898883766}
+          m_TargetAssemblyTypeName: MainScript, Assembly-CSharp
           m_MethodName: debug_click
           m_Mode: 2
           m_Arguments:
@@ -3780,8 +3780,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
+        - m_Target: {fileID: 898883766}
+          m_TargetAssemblyTypeName: MainScript, Assembly-CSharp
           m_MethodName: debug_click
           m_Mode: 2
           m_Arguments:
@@ -4092,8 +4092,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
+        - m_Target: {fileID: 898883766}
+          m_TargetAssemblyTypeName: MainScript, Assembly-CSharp
           m_MethodName: debug_click
           m_Mode: 2
           m_Arguments:
@@ -4243,8 +4243,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
+        - m_Target: {fileID: 898883766}
+          m_TargetAssemblyTypeName: MainScript, Assembly-CSharp
           m_MethodName: debug_click
           m_Mode: 2
           m_Arguments:
@@ -4312,8 +4312,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
+        - m_Target: {fileID: 898883766}
+          m_TargetAssemblyTypeName: MainScript, Assembly-CSharp
           m_MethodName: debug_click
           m_Mode: 2
           m_Arguments:
@@ -4463,8 +4463,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
+        - m_Target: {fileID: 898883766}
+          m_TargetAssemblyTypeName: MainScript, Assembly-CSharp
           m_MethodName: debug_click
           m_Mode: 2
           m_Arguments:
@@ -4794,8 +4794,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
+        - m_Target: {fileID: 898883766}
+          m_TargetAssemblyTypeName: MainScript, Assembly-CSharp
           m_MethodName: debug_click
           m_Mode: 2
           m_Arguments:
@@ -5077,8 +5077,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
+        - m_Target: {fileID: 898883766}
+          m_TargetAssemblyTypeName: MainScript, Assembly-CSharp
           m_MethodName: debug_click
           m_Mode: 2
           m_Arguments:
@@ -5228,8 +5228,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
+        - m_Target: {fileID: 898883766}
+          m_TargetAssemblyTypeName: MainScript, Assembly-CSharp
           m_MethodName: debug_click
           m_Mode: 2
           m_Arguments:

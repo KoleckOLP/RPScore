@@ -23,7 +23,7 @@ public class MainScript : MonoBehaviour
 	// Static variables to make me more lazy
 	public string vn(string inp){
 		string vpath = "/video/";
-		string name = vpath + inp + ".mp4";
+		string name = vpath + inp;
 		return name;
 	}
 
@@ -32,7 +32,7 @@ public class MainScript : MonoBehaviour
     {
         video.prepareCompleted += prepareCompleted;
         video.loopPointReached += loopPointReached;
-        playvid(vn("1_0_game"));
+        playvid(vn("1_0_game.mp4"));
     }
 
     // Update is called once per frame
@@ -72,22 +72,22 @@ public class MainScript : MonoBehaviour
 	private void win_lose(){
 		Debug.Log("hit");
 		if(win){
-			playvid(vn("1_5_win"));
+			playvid(vn("1_5_win.mp4"));
 		}
 		if(lost){
 			if(lose == 1){
 				if(draw){
-					playvid(vn("1_2_draw"));
+					playvid(vn("1_2_draw.mp4"));
 				}
 				else{
-					playvid(vn("1_1_lose"));
+					playvid(vn("1_1_lose.mp4"));
 				}
 			}
 			else if(lose == 2){
-				playvid(vn("1_3_lose"));
+				playvid(vn("1_3_lose.mp4"));
 			}
 			else{
-				playvid(vn("1_4_lose"));
+				playvid(vn("1_4_lose.mp4"));
 			}
 		}
 	}
@@ -99,17 +99,11 @@ public class MainScript : MonoBehaviour
             Random();
             GameLayer.SetActive(true); //Activates the GaySlayer (as for Soldat's request)
         }
-
-		if(videoname == "6_1_rock.mp4"){
+		else if(videoname == "6_1_rock.mp4" || videoname == "6_2_paper.mp4" || videoname == "6_3_scissors.mp4"){ // in the final game it can be else
 			win_lose();
 		}
-		
-		if(videoname == "6_2_paper.mp4"){
-			win_lose();
-		}
-		
-		if(videoname == "6_3_scissors.mp4"){
-			win_lose();
+		else if(videoname == "1_5_win.mp4"){
+			playvid(vn("1_6_undress.mp4"));
 		}
     }
 
@@ -121,13 +115,13 @@ public class MainScript : MonoBehaviour
         switch (rando)
         {
             case 1:
-				cheat = "She chose Rock!";
+				cheat = "She chose Rock! (" + rando + ")";
                 break;
             case 2:
-				cheat = "She chose Scissors!";
+				cheat = "She chose Paper! (" + rando + ")";
                 break;
             case 3:
-				cheat = "She chose Scissors!";
+				cheat = "She chose Scissors! (" + rando + ")";
                 break;
         }
         
@@ -136,81 +130,71 @@ public class MainScript : MonoBehaviour
         return rando;
 	}
 
+	private void win_s(){
+		win = true;
+		lost = false;
+		draw = false;
+	}
+
+	private void lose_s(){
+		lose += lose;
+		win = false;
+		lost = true;
+		draw = false;
+	}
+
+	private void draw_s(){
+		lose += lose;
+		win = false;
+		lost = true;
+		draw = true;
+	}
+
 	//==========ROCK==========
 	public void Click_rock(){ //1
-		if(videoname == "1_0_game.mp4"){
-			if(rando == 1){ 		//draw r r
-				lose += lose;
-				win = false;
-				lost = true;
-				draw = true;
-				playvid(vn("6_1_rock"));
-			}
-			else if(rando == 2){ 	//lost r p
-				lose += lose;
-				win = false;
-				lost = true;
-				draw = false;
-				playvid(vn("6_2_paper"));
-			}
-			else{ 					//win r s !!!
-				win = true;
-				lost = false;
-				draw = false;
-				playvid(vn("6_3_scissors"));
-			}
+		if(rando == 1){ 		//draw r r
+			draw_s();
+			playvid(vn("6_1_rock.mp4"));
+		}
+		else if(rando == 2){ 	//lost r p
+			lose_s();
+			playvid(vn("6_2_paper.mp4"));
+		}
+		else{ 					//win r s !!!
+			win_s();
+			playvid(vn("6_3_scissors.mp4"));
 		}
 	}
 
 	//==========PAPER==========
 	public void Click_paper(){ //2
-		if(videoname == "1_0_game.mp4"){
-			if(rando == 1){ 		//win p r !!!
-				win = true;
-				lost = false;
-				draw = false;
-				playvid(vn("6_1_rock"));
-			}
-			else if(rando == 2){ 	//draw p p
-				lose += lose;
-				win = false;
-				lost = true;
-				draw = true;
-				playvid(vn("6_2_paper"));
-			}
-			else{ 					//lost p s
-				lose += lose;
-				win = false;
-				lost = true;
-				draw = false;
-				playvid(vn("6_3_scissors"));
-			}
+		if(rando == 1){ 		//win p r !!!
+			win_s();
+			playvid(vn("6_1_rock.mp4"));
+		}
+		else if(rando == 2){ 	//draw p p
+			draw_s();
+			playvid(vn("6_2_paper.mp4"));
+		}
+		else{ 					//lost p s
+			lose_s();
+			playvid(vn("6_3_scissors.mp4"));
 		}
 	}
 
 	//==========SCISSORS==========
 	public void Click_scissors(){ //3
-		if(videoname == "1_0_game.mp4"){
-			if(rando == 1){ 		//lose s r
-				lose += lose;
-				win = false;
-				lost = true;
-				draw = false;
-				playvid(vn("6_1_rock"));
-			}
-			else if(rando == 2){ 	//win s p !!!
-				win = true;
-				lost = false;
-				draw = false;
-				playvid(vn("6_2_paper"));
-			}
-			else{ 					//draw s s 
-				lose += lose;
-				win = false;
-				lost = true;
-				draw = true;
-				playvid(vn("6_3_scissors"));
-			}
+		if(rando == 1){ 		//lose s r
+			lose_s();
+			playvid(vn("6_1_rock.mp4"));
+		}
+		else if(rando == 2){ 	//win s p !!!
+			win_s();
+			playvid(vn("6_2_paper.mp4"));
+		}
+		else{ 					//draw s s 
+			draw_s();
+			playvid(vn("6_3_scissors.mp4"));
 		}
 	}
 
@@ -220,9 +204,9 @@ public class MainScript : MonoBehaviour
 		debug = button.name;
 
 		if(debug == "Debug0.9"){        //Reset?
-			video.time = 0;
+			playvid(vn("1_0_game.mp4"));
 		}
-		else if(debug == "Debug1.0"){   //Skip
+		else if(debug == "Debug1.0"){   //Skip time to stage 1 gameplay
 			video.time = 24;
 		}
 		/*else if(debug == "Debug1.5"){
