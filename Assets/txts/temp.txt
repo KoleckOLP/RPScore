@@ -36,3 +36,15 @@
 6_1_rock
 6_2_paper
 6_3_scissors
+
+playvid
+    vid file
+    prepare
+
+loopPointReached
+    hasFinished true
+
+prepareCompleted
+    if hasFinished true
+        play
+        hasFinished false
