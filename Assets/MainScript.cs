@@ -9,9 +9,12 @@ using UnityEngine.UI;
 public class MainScript : MonoBehaviour
 {
     public VideoPlayer video;
-    public GameObject GameLayer;
+    public GameObject Rock;
+	public GameObject paper;
+	public GameObject Scissors;
 	public GameObject DebugLayer;
 	public GameObject Cheat;
+	public GameObject Lost;
     public string videoname;
     public int rando = 0;
 	public string cheat = "cheat";
@@ -22,8 +25,7 @@ public class MainScript : MonoBehaviour
 
 	// Static variables to make me more lazy
 	public string vn(string inp){
-		string vpath = "/video/";
-		string name = vpath + inp;
+		string name = Application.streamingAssetsPath + Path.AltDirectorySeparatorChar + inp;
 		return name;
 	}
 
@@ -53,24 +55,27 @@ public class MainScript : MonoBehaviour
 
         //Debug GameLayer
 		if(Input.GetKeyDown(KeyCode.G)){
-			GameLayer.SetActive(!GameLayer.activeSelf);
+			GameLayer(!Rock.activeSelf);
 		}
     }
 
+	private void GameLayer(bool actv){
+		Rock.SetActive(actv);
+		paper.SetActive(actv);
+		Scissors.SetActive(actv);
+	}
+
     private void prepareCompleted(VideoPlayer v){ //Autoplaying the first clip
 		video.Play();
-		Debug.Log("prepareCompleted " + videoname);
     }
 
 	public void playvid(string vid){
-		video.url = Application.dataPath + vid;
+		video.url = vid;
 		video.Prepare();
-		videoname = Path.GetFileName(video.url);
-		Debug.Log("playvid " + videoname);
+		videoname = Path.GetFileName(vid);
 	}
 
 	private void win_lose(){
-		Debug.Log("hit");
 		if(win){
 			playvid(vn("1_5_win.mp4"));
 		}
@@ -93,17 +98,29 @@ public class MainScript : MonoBehaviour
 	}
 
     private void loopPointReached(VideoPlayer v){ //Code to be ran when video ends.
-		Debug.Log("loopPointReached " + videoname);
-		
-		if(videoname == "1_0_game.mp4"){
+		if(videoname == "1_0_game.mp4"){ //Stage 1
             Random();
-            GameLayer.SetActive(true); //Activates the GaySlayer (as for Soldat's request)
+            GameLayer(true); //Activates the GaySlayer (as for Soldat's request)
         }
 		else if(videoname == "6_1_rock.mp4" || videoname == "6_2_paper.mp4" || videoname == "6_3_scissors.mp4"){ // in the final game it can be else
 			win_lose();
+			if(lost){
+				Lost.GetComponent<UnityEngine.UI.Text>().text = "Lost: " + lose.ToString();
+			}
+		}
+		else if(videoname == "1_1_lose.mp4" || videoname == "1_1_lose.mp4" || videoname == "1_2_draw.mp4" || videoname == "1_3_lose.mp4" || videoname == "1_4_lose.mp4"){
+			playvid(vn("1_0_game.mp4"));
 		}
 		else if(videoname == "1_5_win.mp4"){
+			lose = 0;
 			playvid(vn("1_6_undress.mp4"));
+		}
+		else if(videoname == "1_6_undress.mp4"){
+			playvid(vn("2_0_game.mp4"));
+		}
+		else if(videoname == "2_0_game.mp4"){ // Stage 2
+			Random();
+			GameLayer(true);
 		}
     }
 
@@ -115,13 +132,13 @@ public class MainScript : MonoBehaviour
         switch (rando)
         {
             case 1:
-				cheat = "She chose Rock! (" + rando + ")";
+				cheat = "She chose: Rock! (" + rando + ")";
                 break;
             case 2:
-				cheat = "She chose Paper! (" + rando + ")";
+				cheat = "She chose: Paper! (" + rando + ")";
                 break;
             case 3:
-				cheat = "She chose Scissors! (" + rando + ")";
+				cheat = "She chose: Scissors! (" + rando + ")";
                 break;
         }
         
@@ -137,14 +154,14 @@ public class MainScript : MonoBehaviour
 	}
 
 	private void lose_s(){
-		lose += lose;
+		lose = lose + 1;
 		win = false;
 		lost = true;
 		draw = false;
 	}
 
 	private void draw_s(){
-		lose += lose;
+		lose = lose + 1;
 		win = false;
 		lost = true;
 		draw = true;
@@ -154,14 +171,17 @@ public class MainScript : MonoBehaviour
 	public void Click_rock(){ //1
 		if(rando == 1){ 		//draw r r
 			draw_s();
+			GameLayer(false);
 			playvid(vn("6_1_rock.mp4"));
 		}
 		else if(rando == 2){ 	//lost r p
 			lose_s();
+			GameLayer(false);
 			playvid(vn("6_2_paper.mp4"));
 		}
 		else{ 					//win r s !!!
 			win_s();
+			GameLayer(false);
 			playvid(vn("6_3_scissors.mp4"));
 		}
 	}
@@ -170,14 +190,17 @@ public class MainScript : MonoBehaviour
 	public void Click_paper(){ //2
 		if(rando == 1){ 		//win p r !!!
 			win_s();
+			GameLayer(false);
 			playvid(vn("6_1_rock.mp4"));
 		}
 		else if(rando == 2){ 	//draw p p
 			draw_s();
+			GameLayer(false);
 			playvid(vn("6_2_paper.mp4"));
 		}
 		else{ 					//lost p s
 			lose_s();
+			GameLayer(false);
 			playvid(vn("6_3_scissors.mp4"));
 		}
 	}
@@ -186,14 +209,17 @@ public class MainScript : MonoBehaviour
 	public void Click_scissors(){ //3
 		if(rando == 1){ 		//lose s r
 			lose_s();
+			GameLayer(false);
 			playvid(vn("6_1_rock.mp4"));
 		}
 		else if(rando == 2){ 	//win s p !!!
 			win_s();
+			GameLayer(false);
 			playvid(vn("6_2_paper.mp4"));
 		}
 		else{ 					//draw s s 
 			draw_s();
+			GameLayer(false);
 			playvid(vn("6_3_scissors.mp4"));
 		}
 	}
@@ -207,63 +233,53 @@ public class MainScript : MonoBehaviour
 			playvid(vn("1_0_game.mp4"));
 		}
 		else if(debug == "Debug1.0"){   //Skip time to stage 1 gameplay
-			video.time = 24;
-		}
-		/*else if(debug == "Debug1.5"){
-			round = 1.6;
-			video.time = 25.0;
-			rando = 1;
+			if(videoname == "1_0_game.mp4"){
+				video.time = 24;
+			}
+			else{
+				playvid(vn("1_0_game.mp4"));
+				video.time = 24;
+			}
 		}
 		else if(debug == "Debug1.1"){
-			round = 1.1;
-			video.time = 30.5;
-			rando = 1;
+			playvid(vn("1_1_lose.mp4"));
 		}
 		else if(debug == "Debug1.2"){
-			round = 1.2;
-			video.time = 36.0;
-			rando = 1;
+			playvid(vn("1_2_draw.mp4"));
 		}
 		else if(debug == "Debug1.3"){
-			round = 1.3;
-			video.time = 43.0;
-			rando = 1;
+			playvid(vn("1_3_lose.mp4"));
 		}
 		else if(debug == "Debug1.4"){
-			round = 1.4;
-			video.time = 49.0;
-			rando = 1;
+			playvid(vn("1_4_lose.mp4"));
+		}
+		else if(debug == "Debug1.5"){
+			playvid(vn("1_5_win.mp4"));
 		}
 		else if(debug == "Debug1.6"){
-			round = 1.9;
-			video.time = 58;
-			rando = 1;
+			playvid(vn("1_6_undress.mp4"));
 		}
 		else if(debug == "Debug1.9"){
-			round = 2.0;
-			video.time = 74;
-			rando = 1;
+			playvid(vn("2_0_game.mp4"));
 		}
 		else if(debug == "Debug2.0"){
-			round = 2.0;
-			video.time = 93.1;
-			rando = 1;
+			if(videoname == "2_0_game.mp4"){
+				video.time = 19;
+			}
+			else{
+				playvid(vn("2_0_game.mp4"));
+				video.time = 19;
+			}
 		}
-		else if(debug == "Debug9.1"){ //rock
-			round = 1.5;
-			video.time = 595.5;
-			rando = 1;
+		else if(debug == "Debug6.1"){ //rock
+			playvid(vn("6_1_rock.mp4"));
 		}
-		else if(debug == "Debug9.2"){ //paper
-			round = 1.5;
-			video.time = 607.5;
-			rando = 2;
+		else if(debug == "Debug6.2"){ //paper
+			playvid(vn("6_2_paper.mp4"));
 		}
-		else if(debug == "Debug9.3"){ //scissors
-			round = 1.5;
-			video.time = 601.0;
-			rando = 3;
-		}*/
+		else if(debug == "Debug6.3"){ //scissors
+			playvid(vn("6_3_scissors.mp4"));
+		}
 	}
 }
 
