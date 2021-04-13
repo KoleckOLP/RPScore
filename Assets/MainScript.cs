@@ -23,6 +23,8 @@ public class MainScript : MonoBehaviour
 	public bool draw = false;
 	public int lose = 0;
 
+	public int stage = 1;
+
 	// Static variables to make me more lazy
 	public string vn(string inp){
 		string name = Application.streamingAssetsPath + Path.AltDirectorySeparatorChar + inp;
@@ -76,29 +78,120 @@ public class MainScript : MonoBehaviour
 	}
 
 	private void win_lose(){
-		if(win){
-			playvid(vn("1_5_win.mp4"));
-		}
-		if(lost){
-			if(lose == 1){
-				if(draw){
-					playvid(vn("1_2_draw.mp4"));
+		if(stage == 1){
+			if(win){
+				playvid(vn("1_5_win.mp4"));
+				stage = stage + 1;
+			}
+			if(lost){
+				if(lose == 1){
+					if(draw){
+						playvid(vn("1_2_draw.mp4"));
+					}
+					else{
+						playvid(vn("1_1_lose.mp4"));
+					}
+				}
+				else if(lose == 2){
+					playvid(vn("1_3_lose.mp4"));
 				}
 				else{
-					playvid(vn("1_1_lose.mp4"));
+					playvid(vn("1_4_lose.mp4"));
 				}
 			}
-			else if(lose == 2){
-				playvid(vn("1_3_lose.mp4"));
+		}
+		else if(stage == 2){
+			if(win){
+				playvid(vn("2_5_win.mp4"));
+				stage = stage + 1;
 			}
-			else{
-				playvid(vn("1_4_lose.mp4"));
+			if(lost){
+				if(lose == 1){
+					if(draw){
+						playvid(vn("2_2_draw.mp4"));
+					}
+					else{
+						playvid(vn("2_1_lose.mp4"));
+					}
+				}
+				else if(lose == 2){
+					playvid(vn("2_3_lose.mp4"));
+				}
+				else{
+					playvid(vn("2_4_lose.mp4"));
+				}
+			}
+		}
+		else if(stage == 3){
+			if(win){
+				playvid(vn("3_5_win.mp4"));
+				stage = stage + 1;
+			}
+			if(lost){
+				if(lose == 1){
+					if(draw){
+						playvid(vn("3_2_draw.mp4"));
+					}
+					else{
+						playvid(vn("3_1_lose.mp4"));
+					}
+				}
+				else if(lose == 2){
+					playvid(vn("3_3_lose.mp4"));
+				}
+				else{
+					playvid(vn("3_4_lose.mp4"));
+				}
+			}
+		}
+		else if(stage == 4){
+			if(win){
+				playvid(vn("4_5_win.mp4"));
+				stage = stage + 1;
+			}
+			if(lost){
+				if(lose == 1){
+					if(draw){
+						playvid(vn("4_2_draw.mp4"));
+					}
+					else{
+						playvid(vn("4_1_lose.mp4"));
+					}
+				}
+				else if(lose == 2){
+					playvid(vn("4_3_lose.mp4"));
+				}
+				else{
+					playvid(vn("4_4_lose.mp4"));
+				}
+			}
+		}
+		else if(stage == 5){
+			if(win){
+				playvid(vn("5_5_win.mp4"));
+				stage = stage + 1;
+			}
+			if(lost){
+				if(lose == 1){
+					if(draw){
+						playvid(vn("5_2_draw.mp4"));
+					}
+					else{
+						playvid(vn("5_1_lose.mp4"));
+					}
+				}
+				else if(lose == 2){
+					playvid(vn("5_3_lose.mp4"));
+				}
+				else{
+					playvid(vn("5_4_lose.mp4"));
+				}
 			}
 		}
 	}
 
     private void loopPointReached(VideoPlayer v){ //Code to be ran when video ends.
-		if(videoname == "1_0_game.mp4"){ //Stage 1
+		if(videoname == "1_0_game.mp4"){ //Stage 1 vest
             Random();
             GameLayer(true); //Activates the GaySlayer (as for Soldat's request)
         }
@@ -118,9 +211,58 @@ public class MainScript : MonoBehaviour
 		else if(videoname == "1_6_undress.mp4"){
 			playvid(vn("2_0_game.mp4"));
 		}
-		else if(videoname == "2_0_game.mp4"){ // Stage 2
+		else if(videoname == "2_0_game.mp4"){ // Stage 2 pantyhose
 			Random();
 			GameLayer(true);
+		}
+		else if(videoname == "2_1_lose.mp4" || videoname == "2_1_lose.mp4" || videoname == "2_2_draw.mp4" || videoname == "2_3_lose.mp4" || videoname == "2_4_lose.mp4"){
+			playvid(vn("2_0_game.mp4"));
+		}
+		else if(videoname == "2_5_win.mp4"){
+			lose = 0;
+			playvid(vn("2_6_undress.mp4"));
+		}
+		else if(videoname == "2_6_undress.mp4"){
+			playvid(vn("3_0_game.mp4"));
+		}
+		else if(videoname == "3_0_game.mp4"){ // Stage 3 top 1
+			Random();
+			GameLayer(true);
+		}
+		else if(videoname == "3_1_lose.mp4" || videoname == "3_1_lose.mp4" || videoname == "3_2_draw.mp4" || videoname == "3_3_lose.mp4" || videoname == "3_4_lose.mp4"){
+			playvid(vn("3_0_game.mp4"));
+		}
+		else if(videoname == "3_5_win.mp4"){
+			lose = 0;
+			playvid(vn("3_6_undress.mp4"));
+		}
+		else if(videoname == "3_6_undress.mp4"){
+			playvid(vn("4_0_game.mp4"));
+		}
+		else if(videoname == "4_0_game.mp4"){ // Stage 4 top 2
+			Random();
+			GameLayer(true);
+		}
+		else if(videoname == "4_1_lose.mp4" || videoname == "4_1_lose.mp4" || videoname == "4_2_draw.mp4" || videoname == "4_3_lose.mp4" || videoname == "4_4_lose.mp4"){
+			playvid(vn("4_0_game.mp4"));
+		}
+		else if(videoname == "4_5_win.mp4"){
+			lose = 0;
+			playvid(vn("4_6_undress.mp4"));
+		}
+		else if(videoname == "3_6_undress.mp4"){
+			playvid(vn("5_0_game.mp4"));
+		}
+		else if(videoname == "5_0_game.mp4"){ // Stage 5 skirt
+			Random();
+			GameLayer(true);
+		}
+		else if(videoname == "5_1_lose.mp4" || videoname == "5_1_lose.mp4" || videoname == "5_2_draw.mp4" || videoname == "5_3_lose.mp4" || videoname == "5_4_lose.mp4"){
+			playvid(vn("5_0_game.mp4"));
+		}
+		else if(videoname == "5_5_win.mp4"){
+			lose = 0;
+			playvid(vn("5_6_undress.mp4"));
 		}
     }
 
@@ -230,6 +372,7 @@ public class MainScript : MonoBehaviour
 		debug = button.name;
 
 		if(debug == "Debug0.9"){        //Reset?
+			stage = 1;
 			playvid(vn("1_0_game.mp4"));
 		}
 		else if(debug == "Debug1.0"){   //Skip time to stage 1 gameplay
@@ -237,6 +380,7 @@ public class MainScript : MonoBehaviour
 				video.time = 24;
 			}
 			else{
+				stage = 1;
 				playvid(vn("1_0_game.mp4"));
 				video.time = 24;
 			}
@@ -260,17 +404,138 @@ public class MainScript : MonoBehaviour
 			playvid(vn("1_6_undress.mp4"));
 		}
 		else if(debug == "Debug1.9"){
+			stage = 2;
 			playvid(vn("2_0_game.mp4"));
 		}
-		else if(debug == "Debug2.0"){
+		else if(debug == "Debug2.0"){ //Stage 2
 			if(videoname == "2_0_game.mp4"){
-				video.time = 19;
+				video.time = 19.2;
 			}
 			else{
+				stage = 2;
 				playvid(vn("2_0_game.mp4"));
-				video.time = 19;
+				video.time = 19.2;
 			}
 		}
+		else if(debug == "Debug2.1"){
+			playvid(vn("2_1_lose.mp4"));
+		}
+		else if(debug == "Debug2.2"){
+			playvid(vn("2_2_draw.mp4"));
+		}
+		else if(debug == "Debug2.3"){
+			playvid(vn("2_3_lose.mp4"));
+		}
+		else if(debug == "Debug2.4"){
+			playvid(vn("2_4_lose.mp4"));
+		}
+		else if(debug == "Debug2.5"){
+			playvid(vn("2_5_win.mp4"));
+		}
+		else if(debug == "Debug2.6"){
+			playvid(vn("2_6_undress.mp4"));
+		}
+		else if(debug == "Debug2.9"){
+			stage = 3;
+			playvid(vn("3_0_game.mp4"));
+		}
+		else if(debug == "Debug3.0"){ //Stage 3
+			if(videoname == "3_0_game.mp4"){
+				video.time = 16.8;
+			}
+			else{
+				stage = 3;
+				playvid(vn("3_0_game.mp4"));
+				video.time = 16.8;
+			}
+		}
+		else if(debug == "Debug3.1"){
+			playvid(vn("3_1_lose.mp4"));
+		}
+		else if(debug == "Debug3.2"){
+			playvid(vn("3_2_draw.mp4"));
+		}
+		else if(debug == "Debug3.3"){
+			playvid(vn("3_3_lose.mp4"));
+		}
+		else if(debug == "Debug3.4"){
+			playvid(vn("3_4_lose.mp4"));
+		}
+		else if(debug == "Debug3.5"){
+			playvid(vn("3_5_win.mp4"));
+		}
+		else if(debug == "Debug3.6"){
+			playvid(vn("3_6_undress.mp4"));
+		}
+		else if(debug == "Debug3.9"){
+			stage = 4;
+			playvid(vn("4_0_game.mp4"));
+		}
+		else if(debug == "Debug4.0"){ //Stage 4
+			if(videoname == "4_0_game.mp4"){
+				video.time = 19.4;
+			}
+			else{
+				stage = 4;
+				playvid(vn("4_0_game.mp4"));
+				video.time = 19.4;
+			}
+		}
+		else if(debug == "Debug4.1"){
+			playvid(vn("4_1_lose.mp4"));
+		}
+		else if(debug == "Debug4.2"){
+			playvid(vn("4_2_draw.mp4"));
+		}
+		else if(debug == "Debug4.3"){
+			playvid(vn("4_3_lose.mp4"));
+		}
+		else if(debug == "Debug4.4"){
+			playvid(vn("4_4_lose.mp4"));
+		}
+		else if(debug == "Debug4.5"){
+			playvid(vn("4_5_win.mp4"));
+		}
+		else if(debug == "Debug4.6"){
+			playvid(vn("4_6_undress.mp4"));
+		}
+		else if(debug == "Debug4.9"){
+			stage = 5;
+			playvid(vn("5_0_game.mp4"));
+		}
+		else if(debug == "Debug5.0"){ //Stage 4
+			if(videoname == "5_0_game.mp4"){
+				video.time = 20.8;
+			}
+			else{
+				stage = 5;
+				playvid(vn("5_0_game.mp4"));
+				video.time = 20.8;
+			}
+		}
+		else if(debug == "Debug5.1"){
+			playvid(vn("5_1_lose.mp4"));
+		}
+		else if(debug == "Debug5.2"){
+			playvid(vn("5_2_draw.mp4"));
+		}
+		else if(debug == "Debug5.3"){
+			playvid(vn("5_3_lose.mp4"));
+		}
+		else if(debug == "Debug5.4"){
+			playvid(vn("5_4_lose.mp4"));
+		}
+		else if(debug == "Debug5.5"){
+			playvid(vn("5_5_win.mp4"));
+		}
+		else if(debug == "Debug5.6"){
+			if(videoname == "5_6_undress.mp4"){
+				video.time = 190;
+			}
+			else{
+				playvid(vn("5_6_undress.mp4"));
+			}
+		}	
 		else if(debug == "Debug6.1"){ //rock
 			playvid(vn("6_1_rock.mp4"));
 		}
