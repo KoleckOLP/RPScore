@@ -23,7 +23,7 @@ public class MainScript : MonoBehaviour
     public int lose = 0;
     public int stage = 1;
 
-    enum pick{
+    private enum pick{
         rock=1, paper=2, scissors=3
     }
 
@@ -98,22 +98,22 @@ public class MainScript : MonoBehaviour
         }
     }
 
-    private void Stage(int stage){
+    private void Stage(int stg){
         if(videoname == $"{stage}_0_game.mp4"){ //Stage 1 vest
             Random();
-            if(stage != 5){
+            if(stg != 5){
                 GameLayer(true); //Activates the GaySlayer (as for Soldat's request)
             }
         }
-        else if(videoname == $"{stage}_1_lose.mp4" || videoname == $"{stage}_1_lose.mp4" || videoname == $"{stage}_2_draw.mp4" || videoname == $"{stage}_3_lose.mp4" || videoname == $"{stage}_4_lose.mp4"){
-            PlayVid(Vn($"{stage}_0_game.mp4"));
+        else if(videoname == $"{stg}_1_lose.mp4" || videoname == $"{stg}_2_draw.mp4" || videoname == $"{stg}_3_lose.mp4" || videoname == $"{stg}_4_lose.mp4"){
+            PlayVid(Vn($"{stg}_0_game.mp4"));
         }
-        else if(videoname == $"{stage}_5_win.mp4"){
+        else if(videoname == $"{stg}_5_win.mp4"){
             lose = 0;
-            PlayVid(Vn($"{stage}_6_undress.mp4"));
+            PlayVid(Vn($"{stg}_6_undress.mp4"));
         }
-        else if(videoname == $"{stage}_6_undress.mp4"){
-            stage = stage + 1;
+        else if(videoname == $"{stg}_6_undress.mp4"){
+            stage = stg + 1; //kinda ugly I hate it.
             PlayVid(Vn($"{stage}_0_game.mp4"));
         }
     }
@@ -173,16 +173,16 @@ public class MainScript : MonoBehaviour
     //==========ROCK==========
     public void Click_rock(){ //1
         GameLayer(false);
-        switch(pick){
-            case pick.rock:
+        switch(rando){
+            case (int)pick.rock:
                 Draw_s();
                 PlayVid(Vn("6_1_rock.mp4"));
                 break;
-            case pick.paper:
+            case (int)pick.paper:
                 Lose_s();
                 PlayVid(Vn("6_2_paper.mp4"));
                 break;
-            case pick.scissors:
+            case (int)pick.scissors:
                 Win_s();
                 PlayVid(Vn("6_3_scissors.mp4"));
                 break;
@@ -192,16 +192,16 @@ public class MainScript : MonoBehaviour
     //==========PAPER==========
     public void Click_paper(){ //2
         GameLayer(false);
-        switch(pick){
-            case pick.rock:
+        switch(rando){
+            case (int)pick.rock:
                 Win_s();
                 PlayVid(Vn("6_1_rock.mp4"));
                 break;
-            case pick.paper:
+            case (int)pick.paper:
                 Draw_s();
                 PlayVid(Vn("6_2_paper.mp4"));
                 break;
-            case pick.scissors:
+            case (int)pick.scissors:
                 Lose_s();
                 PlayVid(Vn("6_3_scissors.mp4"));
                 break;
@@ -211,16 +211,16 @@ public class MainScript : MonoBehaviour
     //==========SCISSORS==========
     public void Click_scissors(){ //3
         GameLayer(false);
-        switch(pick){
-            case pick.rock:
+        switch(rando){
+            case (int)pick.rock:
                 Lose_s();
                 PlayVid(Vn("6_1_rock.mp4"));
                 break;
-            case pick.paper:
+            case (int)pick.paper:
                 Win_s();
                 PlayVid(Vn("6_2_paper.mp4"));
                 break;
-            case scissors: // to test if it needs to be pick.type
+            case (int)pick.scissors: // to test if it needs to be pick.type
                 Draw_s();
                 PlayVid(Vn("6_3_scissors.mp4"));
                 break;

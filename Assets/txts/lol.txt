@@ -1,0 +1,21 @@
+private void Stage(int stg){
+    if(videoname == $"{stage}_0_game.mp4"){ //Stage 1 vest
+        Random();
+        if(stg != 5){
+            GameLayer(true); //Activates the GaySlayer (as for Soldat's request)
+        }
+    }
+    else if(videoname == $"{stg}_1_lose.mp4" || videoname == $"{stg}_1_lose.mp4" || videoname == $"{stg}_2_draw.mp4" || videoname == $"{stg}_3_lose.mp4" || videoname == $"{stg}_4_lose.mp4"){
+        PlayVid(Vn($"{stg}_0_game.mp4"));
+    }
+    else if(videoname == $"{stg}_5_win.mp4"){
+        Debug.Log("hit");
+        lose = 0;
+        PlayVid(Vn($"{stg}_6_undress.mp4"));
+    }
+    else if(videoname == $"{stg}_6_undress.mp4"){
+        Debug.Log("wanted hit");
+        stage = stg + 1; //kinda ugly I hate it.
+        PlayVid(Vn($"{stage}_0_game.mp4"));
+    }
+}
