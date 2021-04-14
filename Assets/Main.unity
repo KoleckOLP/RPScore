@@ -601,7 +601,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &104705468
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5732,7 +5732,6 @@ MonoBehaviour:
   rando: 0
   cheat: cheat
   win: 0
-  lost: 0
   draw: 0
   lose: 0
   stage: 1
