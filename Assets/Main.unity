@@ -5722,15 +5722,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   video: {fileID: 898883765}
-  Rock: {fileID: 216513031}
+  rock: {fileID: 216513031}
   paper: {fileID: 1731863825}
-  Scissors: {fileID: 399743833}
-  DebugLayer: {fileID: 104705467}
-  Cheat: {fileID: 341439201}
-  Lost: {fileID: 496098866}
+  scissors: {fileID: 399743833}
+  debugLayer: {fileID: 104705467}
+  cheat: {fileID: 341439201}
+  lost: {fileID: 496098866}
   videoname: 
   rando: 0
-  cheat: cheat
+  scheat: cheat
   win: 0
   draw: 0
   lose: 0

@@ -1,7 +1,7 @@
-using System;
+//using System;
 using System.IO;
-using System.Collections;
-using System.Collections.Generic;
+//using System.Collections;
+//using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 using UnityEngine.UI;
@@ -9,39 +9,39 @@ using UnityEngine.UI;
 public class MainScript : MonoBehaviour
 {
     public VideoPlayer video;
-    public GameObject Rock;
+    public GameObject rock;
     public GameObject paper;
-    public GameObject Scissors;
-    public GameObject DebugLayer;
-    public GameObject Cheat;
-    public GameObject Lost;
+    public GameObject scissors;
+    public GameObject debugLayer;
+    public GameObject cheat;
+    public GameObject lost;
     public string videoname;
-    public int rando = 0;
-    public string cheat = "cheat";
-    public bool win = false;
-    public bool draw = false;
-    public int lose = 0;
-    public int stage = 1;
+    public int rando;
+    public string scheat = "cheat";
+    public bool win;
+    public bool draw;
+    public int lose;
+    public int stage;
 
-    private enum pick{
-        rock=1, paper=2, scissors=3
+    private enum Pick{
+        Rock=1, Paper=2, Scissors=3
     }
 
     // Static variables to make me more lazy
-    private string Vn(string inp){
-        string name = Application.streamingAssetsPath + Path.AltDirectorySeparatorChar + inp;
-        return name;
+    private static string Vn(string inp){
+        var temp = Application.streamingAssetsPath + Path.AltDirectorySeparatorChar + inp;
+        return temp;
     }
 
     // Start is called before the first frame update
-    void Start(){
+    private void Start(){
         video.prepareCompleted += PrepareCompleted;
         video.loopPointReached += LoopPointReached;
         PlayVid(Vn("1_0_game.mp4"));
     }
 
     // Update is called once per frame
-    void Update(){
+    private void Update(){
         //Debug play/pause
         if(Input.GetKeyDown(KeyCode.Space)){
             if (!video.isPlaying)
@@ -52,19 +52,19 @@ public class MainScript : MonoBehaviour
 
         //Debug DebugLayer
         if(Input.GetKeyDown(KeyCode.D)){
-            DebugLayer.SetActive(!DebugLayer.activeSelf);
+            debugLayer.SetActive(!debugLayer.activeSelf);
         }
 
         //Debug GameLayer
         if(Input.GetKeyDown(KeyCode.G)){
-            GameLayer(!Rock.activeSelf);
+            GameLayer(!rock.activeSelf);
         }
     }
 
     private void GameLayer(bool actv){
-        Rock.SetActive(actv);
+        rock.SetActive(actv);
         paper.SetActive(actv);
-        Scissors.SetActive(actv);
+        scissors.SetActive(actv);
     }
 
     private void PrepareCompleted(VideoPlayer v){ //Autoplaying the first clip
@@ -77,24 +77,25 @@ public class MainScript : MonoBehaviour
         videoname = Path.GetFileName(vid);
     }
 
-    private void GameResult(int stage){
+    private void GameResult(int stg)
+    {
         if(win){
-            PlayVid(Vn($"{stage}_5_win.mp4"));
+            PlayVid(Vn($"{stg}_5_win.mp4"));
             return;
         }
-        if(lose == 1 && draw){
-            PlayVid(Vn($"{stage}_2_draw.mp4"));
-            return;
-        }
-        else if(lose == 1){
-            PlayVid(Vn($"{stage}_1_lose.mp4"));
-            return;
-        }
-        else if(lose == 2){
-            PlayVid(Vn($"{stage}_3_lose.mp4"));
-        }
-        else{
-            PlayVid(Vn($"{stage}_4_lose.mp4"));
+        switch (lose){
+            case 1 when draw:
+                PlayVid(Vn($"{stg}_2_draw.mp4"));
+                return;
+            case 1:
+                PlayVid(Vn($"{stg}_1_lose.mp4"));
+                return;
+            case 2:
+                PlayVid(Vn($"{stg}_3_lose.mp4"));
+                break;
+            default:
+                PlayVid(Vn($"{stg}_4_lose.mp4"));
+                break;
         }
     }
 
@@ -122,7 +123,7 @@ public class MainScript : MonoBehaviour
         if(videoname == "6_1_rock.mp4" || videoname == "6_2_paper.mp4" || videoname == "6_3_scissors.mp4"){ // in the final game it can be else
             GameResult(stage);
             if(lose != 0){
-                Lost.GetComponent<UnityEngine.UI.Text>().text = "Lost: " + lose.ToString();
+                lost.GetComponent<Text>().text = "Lost: " + lose.ToString();
             }
         }
         else{
@@ -130,27 +131,20 @@ public class MainScript : MonoBehaviour
         }
     }
 
-    private int Random(){
-        System.Random rd = new System.Random();
+    private void Random(){
+        var rd = new System.Random();
 
         rando = rd.Next(1, 4);
 
-        switch (rando)
-        {
-            case 1:
-                cheat = $"She chose: Rock! ({rando})";
-                break;
-            case 2:
-                cheat = $"She chose: Paper! ({rando})";
-                break;
-            case 3:
-                cheat = $"She chose: Scissors! ({rando})";
-                break;
-        }
-        
-        Debug.Log(cheat);
-        Cheat.GetComponent<UnityEngine.UI.Text>().text = cheat;
-        return rando;
+        scheat = rando switch{
+            1 => $"She chose: Rock! ({rando})",
+            2 => $"She chose: Paper! ({rando})",
+            3 => $"She chose: Scissors! ({rando})",
+            _ => scheat
+        };
+
+        Debug.Log(scheat);
+        cheat.GetComponent<Text>().text = scheat;
     }
 
     private void Win_s(){
@@ -159,13 +153,13 @@ public class MainScript : MonoBehaviour
     }
 
     private void Lose_s(){
-        lose = lose + 1;
+        lose += 1;
         win = false;
         draw = false;
     }
 
     private void Draw_s(){
-        lose = lose + 1;
+        lose += 1;
         win = false;
         draw = true;
     }
@@ -174,15 +168,15 @@ public class MainScript : MonoBehaviour
     public void Click_rock(){ //1
         GameLayer(false);
         switch(rando){
-            case (int)pick.rock:
+            case (int)Pick.Rock:
                 Draw_s();
                 PlayVid(Vn("6_1_rock.mp4"));
                 break;
-            case (int)pick.paper:
+            case (int)Pick.Paper:
                 Lose_s();
                 PlayVid(Vn("6_2_paper.mp4"));
                 break;
-            case (int)pick.scissors:
+            case (int)Pick.Scissors:
                 Win_s();
                 PlayVid(Vn("6_3_scissors.mp4"));
                 break;
@@ -193,15 +187,15 @@ public class MainScript : MonoBehaviour
     public void Click_paper(){ //2
         GameLayer(false);
         switch(rando){
-            case (int)pick.rock:
+            case (int)Pick.Rock:
                 Win_s();
                 PlayVid(Vn("6_1_rock.mp4"));
                 break;
-            case (int)pick.paper:
+            case (int)Pick.Paper:
                 Draw_s();
                 PlayVid(Vn("6_2_paper.mp4"));
                 break;
-            case (int)pick.scissors:
+            case (int)Pick.Scissors:
                 Lose_s();
                 PlayVid(Vn("6_3_scissors.mp4"));
                 break;
@@ -212,15 +206,15 @@ public class MainScript : MonoBehaviour
     public void Click_scissors(){ //3
         GameLayer(false);
         switch(rando){
-            case (int)pick.rock:
+            case (int)Pick.Rock:
                 Lose_s();
                 PlayVid(Vn("6_1_rock.mp4"));
                 break;
-            case (int)pick.paper:
+            case (int)Pick.Paper:
                 Win_s();
                 PlayVid(Vn("6_2_paper.mp4"));
                 break;
-            case (int)pick.scissors: // to test if it needs to be pick.type
+            case (int)Pick.Scissors: // to test if it needs to be pick.type
                 Draw_s();
                 PlayVid(Vn("6_3_scissors.mp4"));
                 break;
@@ -228,9 +222,9 @@ public class MainScript : MonoBehaviour
     }
 
     //==========DEBUG==========
-    public void debug_click(Button button){
-        string debug;
-        debug = button.name;
+    public void debug_click(Button button)
+    {
+        var debug = button.name;
 
         if(debug == "Debug0.9"){        //Reset?
             stage = 1;
