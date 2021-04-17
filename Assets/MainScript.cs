@@ -22,9 +22,10 @@ public class MainScript : MonoBehaviour
     public bool draw;
     public int lose;
     public int stage;
+    public int maxLoss; // If you set this to 1 every loss will reset the game, if higher go only stage lower. (inc draw)
 
     private enum Pick{
-        Rock=1, Paper=2, Scissors=3
+        Rock = 1, Paper = 2, Scissors = 3
     }
 
     // Static variables to make me more lazy
@@ -44,6 +45,10 @@ public class MainScript : MonoBehaviour
     private void Update(){
         //Debug play/pause
         if(Input.GetKeyDown(KeyCode.Space)){
+            video.time = video.length;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Keypad0)){
             if (!video.isPlaying)
                 video.Play();
             else
@@ -100,21 +105,31 @@ public class MainScript : MonoBehaviour
     }
 
     private void Stage(int stg){
-        if(videoname == $"{stage}_0_game.mp4"){ //Stage 1 vest
+        if(videoname == $"{stage}_0_game.mp4"){ // Stage 1 vest
             Random();
             if(stg != 5){
-                GameLayer(true); //Activates the GaySlayer (as for Soldat's request)
+                GameLayer(true); // Activates the GaySlayer (as for Soldat's request)
             }
         }
         else if(videoname == $"{stg}_1_lose.mp4" || videoname == $"{stg}_2_draw.mp4" || videoname == $"{stg}_3_lose.mp4" || videoname == $"{stg}_4_lose.mp4"){
-            PlayVid(Vn($"{stg}_0_game.mp4"));
+            if (lose >= maxLoss){
+                lose = 0;
+                stage = 1;
+                PlayVid(Vn("1_0_game.mp4"));
+            }
+            else if(maxLoss == 0 || stg == 1){
+                PlayVid(Vn($"{stg}_0_game.mp4"));
+            }
+            else{
+                PlayVid(Vn($"{stg - 1}_0_game.mp4"));
+            }
         }
         else if(videoname == $"{stg}_5_win.mp4"){
             lose = 0;
             PlayVid(Vn($"{stg}_6_undress.mp4"));
         }
         else if(videoname == $"{stg}_6_undress.mp4"){
-            stage = stg + 1; //kinda ugly I hate it.
+            stage = stg + 1; // Kinda ugly I hate it.
             PlayVid(Vn($"{stage}_0_game.mp4"));
         }
     }
@@ -221,184 +236,58 @@ public class MainScript : MonoBehaviour
         }
     }
 
-    //==========DEBUG==========
-    public void debug_click(Button button)
-    {
-        var debug = button.name;
+    private void DbgStage(string dbg, int temp){
 
-        if(debug == "Debug0.9"){        //Reset?
-            stage = 1;
-            PlayVid(Vn("1_0_game.mp4"));
+        if (dbg == $"Debug{temp}.9"){
+            stage = temp + 1;
+            PlayVid(Vn($"{stage}_0_game.mp4"));
         }
-        else if(debug == "Debug1.0"){   //Skip time to stage 1 gameplay
-            if(videoname == "1_0_game.mp4"){
-                video.time = 24;
-            }
-            else{
-                stage = 1;
-                PlayVid(Vn("1_0_game.mp4"));
-                video.time = 24;
-            }
+        else if (dbg == $"Debug{temp}.0"){
+            lose = 0;
+            stage = temp;
+            PlayVid(Vn($"{temp}_0_game.mp4"));
         }
-        else if(debug == "Debug1.1"){
-            PlayVid(Vn("1_1_lose.mp4"));
+        else if (dbg == $"Debug{temp}.1"){
+            PlayVid(Vn($"{temp}_1_lose.mp4"));
         }
-        else if(debug == "Debug1.2"){
-            PlayVid(Vn("1_2_draw.mp4"));
+        else if (dbg == $"Debug{temp}.2"){
+            PlayVid(Vn($"{temp}_2_draw.mp4"));
         }
-        else if(debug == "Debug1.3"){
-            PlayVid(Vn("1_3_lose.mp4"));
+        else if (dbg == $"Debug{temp}.3"){
+            PlayVid(Vn($"{temp}_3_lose.mp4"));
         }
-        else if(debug == "Debug1.4"){
-            PlayVid(Vn("1_4_lose.mp4"));
+        else if (dbg == $"Debug{temp}.4"){
+            PlayVid(Vn($"{temp}_4_lose.mp4"));
         }
-        else if(debug == "Debug1.5"){
-            PlayVid(Vn("1_5_win.mp4"));
+        else if (dbg == $"Debug{temp}.5"){
+            PlayVid(Vn($"{temp}_5_win.mp4"));
         }
-        else if(debug == "Debug1.6"){
-            PlayVid(Vn("1_6_undress.mp4"));
+        else if (dbg == $"Debug{temp}.6"){
+            PlayVid(Vn($"{temp}_6_undress.mp4"));
         }
-        else if(debug == "Debug1.9"){
-            stage = 2;
-            PlayVid(Vn("2_0_game.mp4"));
-        }
-        else if(debug == "Debug2.0"){ //Stage 2
-            if(videoname == "2_0_game.mp4"){
-                video.time = 19.2;
-            }
-            else{
-                stage = 2;
-                PlayVid(Vn("2_0_game.mp4"));
-                video.time = 19.2;
-            }
-        }
-        else if(debug == "Debug2.1"){
-            PlayVid(Vn("2_1_lose.mp4"));
-        }
-        else if(debug == "Debug2.2"){
-            PlayVid(Vn("2_2_draw.mp4"));
-        }
-        else if(debug == "Debug2.3"){
-            PlayVid(Vn("2_3_lose.mp4"));
-        }
-        else if(debug == "Debug2.4"){
-            PlayVid(Vn("2_4_lose.mp4"));
-        }
-        else if(debug == "Debug2.5"){
-            PlayVid(Vn("2_5_win.mp4"));
-        }
-        else if(debug == "Debug2.6"){
-            PlayVid(Vn("2_6_undress.mp4"));
-        }
-        else if(debug == "Debug2.9"){
-            stage = 3;
-            PlayVid(Vn("3_0_game.mp4"));
-        }
-        else if(debug == "Debug3.0"){ //Stage 3
-            if(videoname == "3_0_game.mp4"){
-                video.time = 16.8;
-            }
-            else{
-                stage = 3;
-                PlayVid(Vn("3_0_game.mp4"));
-                video.time = 16.8;
+    }
+
+    //==========DEBUG==========
+    public void debug_click(Button button){
+        var debug = button.name;
+        
+        var temp = int.Parse(debug.Substring(5, 1));
+        
+        if(temp == 6){
+            switch (debug){
+                case "Debug6.1":
+                    PlayVid(Vn("6_1_rock.mp4"));
+                    break;
+                case "Debug6.2":
+                    PlayVid(Vn("6_2_paper.mp4"));
+                    break;
+                case "Debug6.3":
+                    PlayVid(Vn("6_3_scissors.mp4"));
+                    break;
             }
         }
-        else if(debug == "Debug3.1"){
-            PlayVid(Vn("3_1_lose.mp4"));
-        }
-        else if(debug == "Debug3.2"){
-            PlayVid(Vn("3_2_draw.mp4"));
-        }
-        else if(debug == "Debug3.3"){
-            PlayVid(Vn("3_3_lose.mp4"));
-        }
-        else if(debug == "Debug3.4"){
-            PlayVid(Vn("3_4_lose.mp4"));
-        }
-        else if(debug == "Debug3.5"){
-            PlayVid(Vn("3_5_win.mp4"));
-        }
-        else if(debug == "Debug3.6"){
-            PlayVid(Vn("3_6_undress.mp4"));
-        }
-        else if(debug == "Debug3.9"){
-            stage = 4;
-            PlayVid(Vn("4_0_game.mp4"));
-        }
-        else if(debug == "Debug4.0"){ //Stage 4
-            if(videoname == "4_0_game.mp4"){
-                video.time = 19.4;
-            }
-            else{
-                stage = 4;
-                PlayVid(Vn("4_0_game.mp4"));
-                video.time = 19.4;
-            }
-        }
-        else if(debug == "Debug4.1"){
-            PlayVid(Vn("4_1_lose.mp4"));
-        }
-        else if(debug == "Debug4.2"){
-            PlayVid(Vn("4_2_draw.mp4"));
-        }
-        else if(debug == "Debug4.3"){
-            PlayVid(Vn("4_3_lose.mp4"));
-        }
-        else if(debug == "Debug4.4"){
-            PlayVid(Vn("4_4_lose.mp4"));
-        }
-        else if(debug == "Debug4.5"){
-            PlayVid(Vn("4_5_win.mp4"));
-        }
-        else if(debug == "Debug4.6"){
-            PlayVid(Vn("4_6_undress.mp4"));
-        }
-        else if(debug == "Debug4.9"){
-            stage = 5;
-            PlayVid(Vn("5_0_game.mp4"));
-        }
-        else if(debug == "Debug5.0"){ //Stage 4
-            if(videoname == "5_0_game.mp4"){
-                video.time = 20.8;
-            }
-            else{
-                stage = 5;
-                PlayVid(Vn("5_0_game.mp4"));
-                video.time = 20.8;
-            }
-        }
-        else if(debug == "Debug5.1"){
-            PlayVid(Vn("5_1_lose.mp4"));
-        }
-        else if(debug == "Debug5.2"){
-            PlayVid(Vn("5_2_draw.mp4"));
-        }
-        else if(debug == "Debug5.3"){
-            PlayVid(Vn("5_3_lose.mp4"));
-        }
-        else if(debug == "Debug5.4"){
-            PlayVid(Vn("5_4_lose.mp4"));
-        }
-        else if(debug == "Debug5.5"){
-            PlayVid(Vn("5_5_win.mp4"));
-        }
-        else if(debug == "Debug5.6"){
-            if(videoname == "5_6_undress.mp4"){
-                video.time = 190;
-            }
-            else{
-                PlayVid(Vn("5_6_undress.mp4"));
-            }
-        }	
-        else if(debug == "Debug6.1"){ //rock
-            PlayVid(Vn("6_1_rock.mp4"));
-        }
-        else if(debug == "Debug6.2"){ //paper
-            PlayVid(Vn("6_2_paper.mp4"));
-        }
-        else if(debug == "Debug6.3"){ //scissors
-            PlayVid(Vn("6_3_scissors.mp4"));
+        else{
+            DbgStage(debug, temp);
         }
     }
 }
